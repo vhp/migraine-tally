@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Migraine Tracker{% endblock %}
+
+{% block content %}
+    <form action="{{ url_for('add_migraines') }}" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <div class="checkbox-container">
+        <label><input type="checkbox" name="aura"> Aura</label>
+        <label><input type="checkbox" name="headache"> Headache</label>
+        <label><input type="checkbox" name="haze"> Haze</label>
+      </div>
+      <div class="checkbox-container">
+        <label><input type="checkbox" name="abortive_medicine"> Abortive Medicine</label>
+      </div>
+        <button type="submit" class="submit-button">Add Migraine Log</button>
+    </form>
+    <h2>Recorded Migraines</h2>
+    <ul>
+    {% for migraine in migraines %}
+        <li class="migraine-entry">
+          <div class="migraine-info">
+            <span class="utc-time" data-utc="{{ migraine.timestamp.isoformat() }}">
+              {{ migraine.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+            </span> -
+            {% if migraine.aura %}Aura, {% endif %}
+            {% if migraine.headache %}headache, {% endif %}
+            {% if migraine.haze %}Haze, {% endif %}
+            {% if migraine.abortive_medicine %}Abortive Medicine{% endif %}
+          </div>
+          <div class="migraine-actions">
+            <a href="{{ url_for('edit_migraine', id=migraine.id) }}">Edit</a>
+            <form method="post" action="{{ url_for('delete_migraine', id=migraine.id) }}" style="display:inline;">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+              <button type="submit" onclick="return confirm('Are you sure you want to delete this migraine record?')" 
+                      class="delete-button">Delete</button>
+            </form>
+          </div>
+          </li>
+    {% endfor %}
+    </ul>
+    <div class="pagination">
+        {% if migraines.has_prev %}
+            <a href="{{ url_for('index', page=migraines.prev_num) }}">Previous</a>
+        {% endif %}
+        
+        {% for page_num in migraines.iter_pages() %}
+            {% if page_num %}
+                {% if page_num != migraines.page %}
+                    <a href="{{ url_for('index', page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                    <strong>{{ page_num }}</strong>
+                {% endif %}
+            {% else %}
+                <span>...</span>
+            {% endif %}
+        {% endfor %}
+        
+        {% if migraines.has_next %}
+            <a href="{{ url_for('index', page=migraines.next_num) }}">Next</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Convert all UTC timestamps to local time
+        document.querySelectorAll('.utc-time').forEach(function(element) {
+          const utcTime = element.getAttribute('data-utc');
+          if (utcTime) {
+            const localDate = new Date(utcTime);
+            element.textContent = localDate.toLocaleString();
+          }
+        });
+      });
+    </script>
+{% endblock %}

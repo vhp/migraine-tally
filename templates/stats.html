@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Migraine Statistics{% endblock %}
+
+{% block content %}
+    <h2>Migraine Statistics</h2>
+    <form action="{{ url_for('stats') }}" method="get">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <select name="view" onchange="this.form.submit()">
+        <option value="events" {% if view_type == 'events' %}selected{% endif %}>Events</option>
+        <option value="days" {% if view_type == 'days' %}selected{% endif %}>Days</option>
+      </select>
+    </form>
+
+    {% for days, data in stats.items() %}
+      <h3>Last {{ days }} Days:</h3>
+      <ul>
+        <li>{% if view_type == 'events' %}Migraine Events{% else %}Migraine Days{% endif %}: {{ data.total }}</li>
+        <ul>
+          <li>Aura: {{ data.aura }}</li>
+          <li>Headache: {{ data.headache }}</li>
+          <li>Haze: {{ data.haze }}</li>
+          <li>Medicine {% if view_type == 'events' %}Uses{% else %}Days{% endif %}: {{ data.medicine }}</li>
+        </ul>
+      </ul>
+    {% endfor %}
+{% endblock %}

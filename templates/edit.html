@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Migraine Record{% endblock %}
+
+{% block content %}
+    <h2>Edit Migraine</h2>
+    <form action="{{ url_for('edit_migraine', id=migraine.id) }}" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+        <div class="checkbox-container">
+            <label><input type="checkbox" name="aura" {% if migraine.aura %}checked{% endif %}> Aura</label>
+            <label><input type="checkbox" name="headache" {% if migraine.headache %}checked{% endif %}> Headache</label>
+            <label><input type="checkbox" name="haze" {% if migraine.haze %}checked{% endif %}> Haze</label>
+        </div>
+        <div class="checkbox-container">
+            <label><input type="checkbox" name="abortive_medicine" {% if migraine.abortive_medicine %}checked{% endif %}> Abortive Medicine</label>
+        </div>
+        <button type="submit" class="submit-button">Update Migraine</button>
+    </form>
+    <a href="{{ url_for('index') }}" class="back-link">Back to List</a>
+{% endblock %}

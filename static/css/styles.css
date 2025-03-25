@@ -1,0 +1,168 @@
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.checkbox-container label {
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    margin-left: 20px;
+}
+
+.migraine-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.migraine-entry {
+    margin-bottom: 15px;
+}
+
+.migraine-info {
+    margin-bottom: 2px;
+}
+
+.migraine-actions {
+    margin-left: 10px;
+}
+
+.migraine-actions a {
+    margin-right: 5px;
+}
+
+ul > li {
+    margin-left: 5px;
+}
+
+/* For stats page */
+select {
+    padding: 5px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Flash messages */
+.flashes {
+    margin-bottom: 20px;
+}
+
+.flash {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.flash.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+.flash.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .checkbox-container {
+        width: 100%;
+    }
+
+    .submit-button {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+        padding: 12px;
+    }
+
+    .migraine-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .migraine-actions a {
+        padding: 8px 12px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #333;
+    }
+}
+
+/* Chart container styles */
+.chart-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    height: 400px;
+}
+
+/* Header and navigation */
+.header-nav {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.header-nav h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.header-nav nav {
+    margin-bottom: 10px;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: #0066cc;
+    padding: 5px 10px;
+}
+
+.header-nav a:hover {
+    text-decoration: underline;
+}
+
+.header-nav a.active {
+    font-weight: bold;
+    color: #004080;
+}
+
+.content {
+    padding: 0 20px;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    color: #0066cc;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    margin-left: 10px;
+}
+
+.delete-button:hover {
+    color: #cc0000;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #0066cc;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
